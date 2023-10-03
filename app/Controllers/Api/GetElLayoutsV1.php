@@ -40,14 +40,30 @@ class GetElLayoutsV1 {
 			'message' => ''
 		];
 
+		if ( ! empty( $data['layout_id'] ) ) {
+			unset( $send_data['layouts'] );
+			$el_data = get_post_meta( $data['layout_id'], '_elementor_data', true );
+			if ( ! empty( $el_data ) ) {
+				$send_data['data']    = $el_data;
+				$send_data['success'] = 'ok';
+			} else {
+				$send_data['message'] = 'Not data found';
+				$send_data['success'] = 'error';
+			}
+
+			return rest_ensure_response( $send_data );
+		}
+
+
 		//TODO: Query for layouts
 		$args = [
 			'post_type'      => [ BuilderFns::$post_type_tb ],
-			'posts_per_page' => -1,
+			'posts_per_page' => - 1,
 			'post_status'    => 'publish',
-			'orderby'        => 'title',
-			'order'          => "ASC"
+			'orderby'        => 'date',
+			'order'          => "DESC"
 		];
+
 
 		$layout_query = new \WP_Query( $args );
 
@@ -58,15 +74,18 @@ class GetElLayoutsV1 {
 				$img_url                = esc_url_raw( get_the_post_thumbnail_url( $pid, 'full' ) );
 				$template_type          = BuilderFns::builder_type( $pid );
 				$editor_type            = Fns::page_edit_with( $pid );
+				$templaate_status       = get_the_terms( $pid, 'rtsb_status' );
+				$status              = wp_list_pluck( $templaate_status, 'slug' );
 				$send_data['layouts'][] = [
 					"id"            => $pid,
-					"content"       => get_post_meta( $pid, '_elementor_data', true ), //get_the_content(),
+					//"content"       => get_post_meta( $pid, '_elementor_data', true ), //get_the_content(),
 					"image_url"     => $img_url,
 					"title"         => html_entity_decode( get_the_title() ),
 					"post_class"    => join( ' ', get_post_class( null, $pid ) ),
 					"preview_link"  => get_the_permalink( $pid ),
 					"template_type" => $template_type,
-					"editor_type"   => $editor_type
+					"editor_type"   => $editor_type,
+					"status"        => ! empty( $status ) ? $status[0] : 'free'
 				];
 				$send_data['success']   = 'ok';
 			}

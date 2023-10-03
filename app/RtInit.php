@@ -21,6 +21,7 @@ use RT\ThePostGridAPI\Controllers\Hooks\FilterHooks;
 use RT\ThePostGridAPI\Controllers\Hooks\ActionHooks;
 use RT\ThePostGridAPI\Controllers\ScriptController;
 use RT\ThePostGridAPI\Controllers\AjaxController;
+use RT\ThePostGridAPI\Controllers\PostTypeController;
 use RT\ThePostGridAPI\Helpers\Install;
 
 
@@ -53,11 +54,11 @@ if ( ! class_exists( RtInit::class ) ) {
 		 * Create an inaccessible constructor.
 		 */
 		private function __construct() {
-//			$this->__init();
+			$this->__init();
 
-			add_action( 'init', function () {
-				$this->__init();
-			} );
+//			add_action( 'init', function () {
+//				$this->__init();
+//			} );
 		}
 
 		/**
@@ -77,7 +78,7 @@ if ( ! class_exists( RtInit::class ) ) {
 		 * @return void
 		 */
 		protected function __init() {
-			new ScriptController();
+//			new ScriptController();
 			new AjaxController();
 			new NoticeController();
 
@@ -85,10 +86,8 @@ if ( ! class_exists( RtInit::class ) ) {
 				new MetaController();
 			}
 
+			new PostTypeController();
 			new RestApi();
-
-			FilterHooks::init();
-			ActionHooks::init();
 
 			$this->load_hooks();
 

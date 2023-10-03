@@ -5,7 +5,7 @@
  * @package RT_SB_API
  */
 
-namespace RT\ThePostGridAPI\Controllers\Hooks;
+namespace RT\ThePostGridAPI\Controllers;
 
 // Do not allow directly accessing this file.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,15 +15,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Action Hooks class.
  */
-class ActionHooks {
+class PostTypeController {
 	/**
 	 * Class init.
 	 *
 	 * @return void
 	 */
 
-	public static function init() {
-		add_action( 'init', [__CLASS__, 'rtsb_template_status_taxonomies'], 10 );
+	public function __construct() {
+		add_action( 'init', [$this, 'rtsb_template_status_taxonomies'], 10 );
 	}
 
 	/**
@@ -31,7 +31,7 @@ class ActionHooks {
 	 *
 	 * @see register_post_type() for registering custom post types.
 	 */
-	public static function rtsb_template_status_taxonomies() {
+	public function rtsb_template_status_taxonomies() {
 
 		// Add new taxonomy, make it hierarchical (like categories)
 		$labels = array(
