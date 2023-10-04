@@ -88,6 +88,7 @@ if ( ! class_exists( RtInit::class ) ) {
 
 			new PostTypeController();
 			new RestApi();
+			FilterHooks::init();
 
 			$this->load_hooks();
 
