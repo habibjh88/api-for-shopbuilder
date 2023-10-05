@@ -43,7 +43,7 @@ class GetElLayoutsV1 {
 		if ( ! empty( $data['layout_id'] ) ) {
 			unset( $send_data['layouts'] );
 			$el_data = get_post_meta( $data['layout_id'], '_elementor_data', true );
-			if ( ! empty( $el_data ) ) {
+			if ( ! empty( $el_data ) && 'yes' === $data['has_pro']) {
 				$send_data['data']    = $el_data;
 				$send_data['success'] = 'ok';
 			} else {
@@ -63,7 +63,6 @@ class GetElLayoutsV1 {
 			'orderby'        => 'date',
 			'order'          => "DESC"
 		];
-
 
 		$layout_query = new \WP_Query( $args );
 
