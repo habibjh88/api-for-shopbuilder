@@ -43,11 +43,15 @@ class GetElLayoutsV1 {
 		if ( ! empty( $data['layout_id'] ) ) {
 			unset( $send_data['layouts'] );
 			$el_data = get_post_meta( $data['layout_id'], '_elementor_data', true );
-			if ( ! empty( $el_data ) && 'yes' === $data['has_pro']) {
+
+			$templaate_status = get_the_terms( $data['layout_id'], 'rtsb_status' );
+			$status           = wp_list_pluck( $templaate_status, 'slug' );
+
+			if ( ! empty( $el_data ) && ! ( 'no' === $data['has_pro'] && $status[0] === 'pro' ) ) {
 				$send_data['data']    = $el_data;
 				$send_data['success'] = 'ok';
 			} else {
-				$send_data['message'] = 'Not data found';
+				$send_data['message'] = 'No data found';
 				$send_data['success'] = 'error';
 			}
 
@@ -74,7 +78,7 @@ class GetElLayoutsV1 {
 				$template_type          = BuilderFns::builder_type( $pid );
 				$editor_type            = Fns::page_edit_with( $pid );
 				$templaate_status       = get_the_terms( $pid, 'rtsb_status' );
-				$status              = wp_list_pluck( $templaate_status, 'slug' );
+				$status                 = wp_list_pluck( $templaate_status, 'slug' );
 				$send_data['layouts'][] = [
 					"id"            => $pid,
 					//"content"       => get_post_meta( $pid, '_elementor_data', true ), //get_the_content(),
