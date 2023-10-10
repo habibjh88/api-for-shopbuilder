@@ -25,11 +25,22 @@ class FilterHooks {
 	 */
 	public static function init() {
 		add_filter( 'rtsb_register_template_builder_args', [ __CLASS__, 'rtsb_register_template_builder_args' ] );
+		add_filter( 'post_row_actions', [ __CLASS__, 'rtsb_template_row_actions' ], 99, 2 );
 	}
 
 	public static function rtsb_register_template_builder_args( $args ) {
 		$args['supports'][] = 'thumbnail';
+
 		return $args;
+	}
+
+	public static function rtsb_template_row_actions( $actions, $post ) {
+		global $pagenow, $typenow;
+		if ( 'edit.php' === $pagenow && 'rtsb_builder' === $typenow ) {
+			$actions['layout-id'] = "<span style='color:#000'>{$post->ID}</span>";
+		}
+
+		return $actions;
 	}
 
 }
