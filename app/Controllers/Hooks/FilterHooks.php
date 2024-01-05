@@ -24,7 +24,7 @@ class FilterHooks {
 	 * @return void
 	 */
 	public static function init() {
-		add_filter( 'rtsb_register_template_builder_args', [ __CLASS__, 'rtsb_register_template_builder_args' ] );
+		add_filter( 'rtsb/builder/template_args', [ __CLASS__, 'rtsb_register_template_builder_args' ] );
 		add_filter( 'post_row_actions', [ __CLASS__, 'rtsb_template_row_actions' ], 99, 2 );
 	}
 
