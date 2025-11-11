@@ -9,12 +9,12 @@ class ComposerStaticInit3eed32117100604cda330a701868f0a5
     public static $prefixLengthsPsr4 = array (
         'R' => 
         array (
-            'RT\\ThePostGridAPI\\' => 18,
+            'RT\\ApiForShopbuilder\\' => 21,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'RT\\ThePostGridAPI\\' => 
+        'RT\\ApiForShopbuilder\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
@@ -22,6 +22,9 @@ class ComposerStaticInit3eed32117100604cda330a701868f0a5
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'RT\\ApiForShopbuilder\\Controllers\\Api\\RestApi' => __DIR__ . '/../..' . '/app/Controllers/Api/RestApi.php',
+        'RT\\ApiForShopbuilder\\Controllers\\Hooks\\ActionHooks' => __DIR__ . '/../..' . '/app/Controllers/Hooks/ActionHooks.php',
+        'RT\\ApiForShopbuilder\\Controllers\\Hooks\\FilterHooks' => __DIR__ . '/../..' . '/app/Controllers/Hooks/FilterHooks.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -10,19 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit( 'This script cannot be accessed directly.' );
 }
 
-require_once __DIR__ . './../vendor/autoload.php';
-
-use RT\ThePostGridAPI\Controllers\Api\RestApi;
-use RT\ThePostGridAPI\Controllers\Admin\MetaController;
-
-//use RT\ThePostGridAPI\Controllers\Admin\SettingsController;
-use RT\ThePostGridAPI\Controllers\Admin\NoticeController;
-use RT\ThePostGridAPI\Controllers\Hooks\FilterHooks;
-use RT\ThePostGridAPI\Controllers\Hooks\ActionHooks;
-use RT\ThePostGridAPI\Controllers\ScriptController;
-use RT\ThePostGridAPI\Controllers\AjaxController;
-use RT\ThePostGridAPI\Controllers\PostTypeController;
-use RT\ThePostGridAPI\Helpers\Install;
+use RT\ApiForShopbuilder\Controllers\Api\RestApi;
+use RT\ApiForShopbuilder\Controllers\Hooks\FilterHooks;
+use RT\ApiForShopbuilder\Controllers\Hooks\ActionHooks;
 
 
 if ( ! class_exists( RtInit::class ) ) {
@@ -30,18 +20,6 @@ if ( ! class_exists( RtInit::class ) ) {
 	 * Main initialization class.
 	 */
 	final class RtInit {
-
-		/**
-		 * Options
-		 *
-		 * @var array
-		 */
-		public $options = [
-			'settings'          => 'rt_the_post_grid_settings',
-			'version'           => RT_SB_API_VERSION,
-			'installed_version' => 'rt_the_post_grid_current_version',
-			'slug'              => RT_SB_API_PLUGIN_SLUG,
-		];
 
 		/**
 		 * Store the singleton object.
@@ -55,10 +33,6 @@ if ( ! class_exists( RtInit::class ) ) {
 		 */
 		private function __construct() {
 			$this->__init();
-
-//			add_action( 'init', function () {
-//				$this->__init();
-//			} );
 		}
 
 		/**
@@ -78,20 +52,10 @@ if ( ! class_exists( RtInit::class ) ) {
 		 * @return void
 		 */
 		protected function __init() {
-//			new ScriptController();
-			new AjaxController();
-			new NoticeController();
-
-			if ( is_admin() ) {
-				new MetaController();
-			}
-
-			new PostTypeController();
-			new RestApi();
+			ActionHooks::init();
 			FilterHooks::init();
-
+			new RestApi();
 			$this->load_hooks();
-
 		}
 
 		/**
@@ -100,7 +64,6 @@ if ( ! class_exists( RtInit::class ) ) {
 		 * @return void
 		 */
 		private function load_hooks() {
-			register_deactivation_hook( RT_SB_API_PLUGIN_FILE, [ Install::class, 'deactivate' ] );
 			add_action( 'plugins_loaded', [ $this, 'on_plugins_loaded' ], - 1 );
 			add_action( 'init', [ $this, 'init_hooks' ], 0 );
 		}
@@ -224,7 +187,6 @@ if ( ! class_exists( RtInit::class ) ) {
 		public function get_template_path() {
 			return apply_filters( 'tpg_api_template_path', 'api-for-shopbuilder/' );
 		}
-
 	}
 
 	/**

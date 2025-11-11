@@ -1,0 +1,15 @@
+{
+    "name": "radiustheme07/api-for-shopbuilder",
+    "autoload": {
+        "psr-4": {
+            "RT\\ApiForShopbuilder\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mamunur Rashid",
+            "email": "30565480+mamunur105@users.noreply.github.com"
+        }
+    ],
+    "require": {}
+}

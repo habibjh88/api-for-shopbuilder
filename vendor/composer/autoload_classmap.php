@@ -7,4 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'RT\\ApiForShopbuilder\\Controllers\\Api\\RestApi' => $baseDir . '/app/Controllers/Api/RestApi.php',
+    'RT\\ApiForShopbuilder\\Controllers\\Hooks\\ActionHooks' => $baseDir . '/app/Controllers/Hooks/ActionHooks.php',
+    'RT\\ApiForShopbuilder\\Controllers\\Hooks\\FilterHooks' => $baseDir . '/app/Controllers/Hooks/FilterHooks.php',
 );

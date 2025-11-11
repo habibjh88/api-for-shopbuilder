@@ -5,7 +5,7 @@
  * @package RT_SB_API
  */
 
-namespace RT\ThePostGridAPI\Controllers\Hooks;
+namespace RT\ApiForShopbuilder\Controllers\Hooks;
 
 // Do not allow directly accessing this file.
 if ( ! defined( 'ABSPATH' ) ) {

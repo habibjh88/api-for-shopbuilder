@@ -5,7 +5,7 @@
  * @package RT_SB_API
  */
 
-namespace RT\ThePostGridAPI\Controllers\Hooks;
+namespace RT\ApiForShopbuilder\Controllers\Hooks;
 
 // Do not allow directly accessing this file.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -21,9 +21,8 @@ class ActionHooks {
 	 *
 	 * @return void
 	 */
-
 	public static function init() {
-		add_action( 'init', [__CLASS__, 'rtsb_template_status_taxonomies'], 10 );
+		add_action( 'init', [ __CLASS__, 'rtsb_template_status_taxonomies' ], 10 );
 	}
 
 	/**
@@ -32,9 +31,8 @@ class ActionHooks {
 	 * @see register_post_type() for registering custom post types.
 	 */
 	public static function rtsb_template_status_taxonomies() {
-
-		// Add new taxonomy, make it hierarchical (like categories)
-		$labels = array(
+		// Add new taxonomy, make it hierarchical (like categories).
+		$labels = [
 			'name'              => _x( 'Status', 'taxonomy general name', 'textdomain' ),
 			'singular_name'     => _x( 'Status', 'taxonomy singular name', 'textdomain' ),
 			'search_items'      => __( 'Search Status', 'textdomain' ),
@@ -46,19 +44,16 @@ class ActionHooks {
 			'add_new_item'      => __( 'Add New Status', 'textdomain' ),
 			'new_item_name'     => __( 'New Status Name', 'textdomain' ),
 			'menu_name'         => __( 'Status', 'textdomain' ),
-		);
-
-		$args = array(
+		];
+		$args   = [
 			'hierarchical'      => true,
 			'labels'            => $labels,
 			'show_ui'           => true,
+			'show_in_rest'      => true,
 			'show_admin_column' => true,
 			'query_var'         => true,
-			'rewrite'           => array( 'slug' => 'rtsb-status' ),
-		);
-
-		register_taxonomy( 'rtsb_status', array( 'rtsb_builder' ), $args );
+			'rewrite'           => [ 'slug' => 'rtsb-status' ],
+		];
+		register_taxonomy( 'rtsb_status', [ 'rtsb_builder' ], $args );
 	}
-
-
 }
