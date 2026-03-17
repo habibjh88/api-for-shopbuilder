@@ -25,7 +25,7 @@ class RestApi {
 						// Allow any origin.
 						if ( isset( $_SERVER['HTTP_ORIGIN'] ) ) {
 							header( "Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}" );
-							header( 'Access-Control-Allow-Methods: GET' ); // Allowed methods.
+							header( 'Access-Control-Allow-Methods: GET, OPTIONS' ); // Allowed methods.
 							header( 'Access-Control-Allow-Headers: Authorization, Content-Type' );
 							header( 'Access-Control-Allow-Credentials: true' ); // Optional.
 						}
