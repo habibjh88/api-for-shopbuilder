@@ -17,42 +17,60 @@ use RadiusTheme\SB\Helpers\Fns;
  */
 class RestApi {
 	/**
-	 * Register rest route
+	 * REST namespace.
+	 *
+	 * @var string
+	 */
+	const REST_NAMESPACE = 'rtsb/v1';
+
+	/**
+	 * Register hooks.
 	 */
 	public function __construct() {
-		// Disable CORS for all site.
-		add_action(
-			'rest_api_init',
-			function () {
-				remove_filter( 'rest_pre_serve_request', 'rest_send_cors_headers' ); // Remove default CORS headers.
-				add_filter(
-					'rest_pre_serve_request',
-					function ( $value ) {
-						// Allow any origin.
-						if ( isset( $_SERVER['HTTP_ORIGIN'] ) ) {
-							header( "Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}" );
-							header( 'Access-Control-Allow-Methods: GET, OPTIONS' ); // Allowed methods.
-							header( 'Access-Control-Allow-Headers: Authorization, Content-Type' );
-							header( 'Access-Control-Allow-Credentials: true' ); // Optional.
-						}
+		add_action( 'rest_api_init', [ $this, 'register_routes' ], 15 );
+		add_filter( 'rest_pre_serve_request', [ $this, 'send_cors_headers' ], 11, 3 );
+	}
 
-						return $value;
-					}
-				);
-				register_rest_route(
-					'rtsb/v1',
-					'layouts',
-					[
-						'methods'             => [ 'GET', 'POST' ],
-						'callback'            => [ $this, 'get_layouts' ],
-						'permission_callback' => function () {
-							return true;
-						},
-					]
-				);
-			},
-			15
+	/**
+	 * Register rest routes.
+	 *
+	 * @return void
+	 */
+	public function register_routes() {
+		register_rest_route(
+			self::REST_NAMESPACE,
+			'layouts',
+			[
+				'methods'             => [ 'GET', 'POST' ],
+				'callback'            => [ $this, 'get_layouts' ],
+				'permission_callback' => '__return_true',
+			]
 		);
+	}
+
+	/**
+	 * Send cache-safe CORS headers for this plugin's routes only.
+	 *
+	 * A static wildcard origin is used instead of reflecting the request
+	 * origin, so proxy-cached responses stay valid for every site.
+	 *
+	 * @param bool             $served  Whether the request has already been served.
+	 * @param mixed            $result  Result to send to the client.
+	 * @param \WP_REST_Request $request Request used to generate the response.
+	 *
+	 * @return bool
+	 */
+	public function send_cors_headers( $served, $result, $request ) {
+		if ( ! $request instanceof \WP_REST_Request || 0 !== strpos( $request->get_route(), '/' . self::REST_NAMESPACE . '/' ) || headers_sent() ) {
+			return $served;
+		}
+
+		header_remove( 'Access-Control-Allow-Credentials' );
+		header( 'Access-Control-Allow-Origin: *' );
+		header( 'Access-Control-Allow-Methods: GET, OPTIONS' );
+		header( 'Access-Control-Allow-Headers: Content-Type' );
+
+		return $served;
 	}
 
 	/**
