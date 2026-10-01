@@ -110,6 +110,7 @@ class RestApi {
 					'template_type' => $template_type,
 					'editor_type'   => $editor_type,
 					'status'        => ! empty( $status ) ? $status[0] : 'free',
+					'menu_order'    => (int) get_post_field( 'menu_order', $pid ),
 				];
 				$send_data['success']   = 'ok';
 			}
