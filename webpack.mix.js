@@ -45,6 +45,7 @@ if (process.env.npm_config_package) {
         // Select All file then paste on list
         let includes = [
             'app',
+            'assets',
             'languages',
             'templates',
             'vendor',

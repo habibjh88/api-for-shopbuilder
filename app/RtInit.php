@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit( 'This script cannot be accessed directly.' );
 }
 
+use RT\ApiForShopbuilder\Controllers\Admin\TemplateOrder;
 use RT\ApiForShopbuilder\Controllers\Api\RestApi;
 use RT\ApiForShopbuilder\Controllers\Hooks\FilterHooks;
 use RT\ApiForShopbuilder\Controllers\Hooks\ActionHooks;
@@ -54,6 +55,7 @@ if ( ! class_exists( RtInit::class ) ) {
 		protected function __init() {
 			ActionHooks::init();
 			FilterHooks::init();
+			TemplateOrder::init();
 			new RestApi();
 			$this->load_hooks();
 		}

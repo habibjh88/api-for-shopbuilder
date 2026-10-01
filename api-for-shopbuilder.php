@@ -4,7 +4,7 @@
  * Plugin URI: https://shopbuilderwp.com/
  * Description: This plugin created for make api
  * Author: RadiusTheme
- * Version: 1.0.1
+ * Version: 1.0.2
  * Text Domain: api-for-shopbuilder
  * Domain Path: /languages
  * Author URI: https://radiustheme.com/
@@ -16,7 +16,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit( 'This script cannot be accessed directly.' );
 }
-define( 'RT_SB_API_VERSION', '1.0.1' );
+define( 'RT_SB_API_VERSION', '1.0.2' );
 define( 'RT_SB_API_AUTHOR', 'RadiusTheme' );
 define( 'RT_SB_API_NAME', 'The Post Grid' );
 define( 'RT_SB_API_PLUGIN_FILE', __FILE__ );

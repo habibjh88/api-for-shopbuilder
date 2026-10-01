@@ -28,12 +28,28 @@ class FilterHooks {
 		add_filter( 'post_row_actions', [ __CLASS__, 'rtsb_template_row_actions' ], 99, 2 );
 	}
 
+	/**
+	 * Add template post type supports.
+	 *
+	 * @param array $args Post type args.
+	 *
+	 * @return array
+	 */
 	public static function rtsb_register_template_builder_args( $args ) {
 		$args['supports'][] = 'thumbnail';
+		$args['supports'][] = 'page-attributes';
 
 		return $args;
 	}
 
+	/**
+	 * Add layout ID to row actions.
+	 *
+	 * @param array    $actions Row actions.
+	 * @param \WP_Post $post    Post object.
+	 *
+	 * @return array
+	 */
 	public static function rtsb_template_row_actions( $actions, $post ) {
 		global $pagenow, $typenow;
 		if ( 'edit.php' === $pagenow && 'rtsb_builder' === $typenow ) {
@@ -42,5 +58,4 @@ class FilterHooks {
 
 		return $actions;
 	}
-
 }

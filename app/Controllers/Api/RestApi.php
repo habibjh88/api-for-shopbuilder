@@ -4,11 +4,17 @@
  *
  * @package RT_SB_API
  */
+
 namespace RT\ApiForShopbuilder\Controllers\Api;
 
 use RadiusTheme\SB\Helpers\BuilderFns;
 use RadiusTheme\SB\Helpers\Fns;
 
+/**
+ * REST API class.
+ *
+ * @package RT_SB_API
+ */
 class RestApi {
 	/**
 	 * Register rest route
@@ -52,7 +58,7 @@ class RestApi {
 	/**
 	 * Get Layout.
 	 *
-	 * @param $data
+	 * @param \WP_REST_Request $data Request.
 	 *
 	 * @return \WP_Error|\WP_HTTP_Response|\WP_REST_Response
 	 */
@@ -66,7 +72,7 @@ class RestApi {
 			$el_data          = get_post_meta( $data['layout_id'], '_elementor_data', true );
 			$templaate_status = get_the_terms( $data['layout_id'], 'rtsb_status' );
 			$status           = wp_list_pluck( $templaate_status, 'slug' );
-			if ( ! empty( $el_data ) && ! ( 'no' === $data['has_pro'] && $status[0] === 'pro' ) ) {
+			if ( ! empty( $el_data ) && ! ( 'no' === $data['has_pro'] && 'pro' === $status[0] ) ) {
 				$send_data['data']    = $el_data;
 				$send_data['success'] = 'ok';
 			} else {
@@ -80,8 +86,10 @@ class RestApi {
 			'post_type'      => [ BuilderFns::$post_type_tb ],
 			'posts_per_page' => - 1,
 			'post_status'    => 'publish',
-			'orderby'        => 'date',
-			'order'          => 'DESC',
+			'orderby'        => [
+				'menu_order' => 'ASC',
+				'date'       => 'DESC',
+			],
 		];
 		$layout_query = new \WP_Query( $args );
 		if ( $layout_query->have_posts() ) {

@@ -1,4 +1,4 @@
-# Copyright (C) 2025 The Post Grid API
+# Copyright (C) 2026 The Post Grid API
 # This file is distributed under the same license as the The Post Grid API package.
 msgid ""
 msgstr ""
@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-11-11 07:34+0000\n"
+"POT-Creation-Date: 2026-10-01 11:15+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -14,6 +14,22 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../app/Controllers/Api/RestApi.php:110, ../dist/api-for-shopbuilder/app/Controllers/Api/RestApi.php:110
+#: ../app/Controllers/Admin/TemplateOrder.php:78, ../app/Controllers/Admin/TemplateOrder.php:85
+msgid "Order"
+msgstr ""
+
+#: ../app/Controllers/Admin/TemplateOrder.php:121
+msgid "Template order"
+msgstr ""
+
+#: ../app/Controllers/Admin/TemplateOrder.php:190
+msgid "Invalid template."
+msgstr ""
+
+#: ../app/Controllers/Admin/TemplateOrder.php:197
+msgid "You are not allowed to edit this template."
+msgstr ""
+
+#: ../app/Controllers/Api/RestApi.php:118
 msgid "No posts found"
 msgstr ""

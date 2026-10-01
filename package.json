@@ -48,5 +48,8 @@
     "sass-loader": "12.1.0",
     "webpack-rtl-plugin": "^2.0.0",
     "wp-pot": "^1.9.8"
+  },
+  "overrides": {
+    "yargs": "17.7.3"
   }
 }
